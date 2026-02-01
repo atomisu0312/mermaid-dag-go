@@ -1,0 +1,31 @@
+graph TD
+  %% exec echo "処理スタート"
+  A["開始処理"]
+  
+  %% exec echo "処理1"
+  B1["処理１（Echo）"]
+  
+  %% exec ./test.sh
+  B2["処理２"]
+  
+  %% exec echo "結合処理"
+  C["結合処理"]
+  
+  %% exec echo "Another処理"
+  D["別の処理"]
+  
+  %% exec echo "終了"
+  E["終了"]
+  
+  A --> B1
+  A --> B2
+  B1 --> C
+  B2 --> C
+  D --> E
+  C --> E
+
+  %% パーサーの問題があるため、クラスは別で定義する必要がある
+  A:::some
+
+	classDef some fill:#f96 
+	classDef some2 fill:#191

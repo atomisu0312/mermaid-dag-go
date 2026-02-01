@@ -2,23 +2,36 @@ package main
 
 import (
 	"fmt"
+	"mermaid-dag-go/dag"
 	"mermaid-dag-go/parser"
-	"os/exec"
+	"os"
 )
 
 func main() {
+	// 引数チェック
+	if len(os.Args) < 1 {
+		fmt.Printf("Usage: %s <filename>\n", os.Args[0])
+		return
+	}
+	fileName := os.Args[1]
+
 	// mermaidファイルをパースして、DAGを表現する構造体を返す
-	dag, err := parser.NewMermaidImpl("sample.mmd")
+	mermaidGraph, err := parser.NewMermaidImpl(fileName)
 	if err != nil {
 		fmt.Printf("Error: %v\n", err)
 		return
 	}
-	// デバッグ出力
-	dag.Print()
 
-	// TODO: DAGファイルからパイプラインを動的に作成して実行する
+	// natessilva/dagをラップする構造体
+	myDag, err := dag.NewMyDagImpl(mermaidGraph)
+	if err != nil {
+		fmt.Printf("Error: %v\n", err)
+		return
+	}
 
-	// Goからターミナルコマンドを実施するメソッド
-	ls, err := exec.Command("ls").Output()
-	fmt.Printf("hello ls:\n%s", ls)
+	// Dagの実行
+	if err := myDag.Run(); err != nil {
+		fmt.Printf("Execution failed: %v\n", err)
+		return
+	}
 }
