@@ -2,8 +2,8 @@ graph TD
   %% exec echo "開始"
   A["開始"]
   
-  %% exec echo "処理1"
-  B1["処理1"]
+  %% exec echo "処理1(1秒)" && sleep 1 && echo "処理1終了"
+  B1["処理1（1秒）"]
   
   %% パスを指定する時には、実行ファイルからの相対パスになる点に注意
   %% exec ./sample/test.sh
@@ -12,8 +12,8 @@ graph TD
   %% exec echo "結合処理"
   C["結合処理"]
   
-  %% exec echo "別の処理"
-  D["別の処理"]
+  %% exec echo "別の処理開始(2秒)"&& sleep 2 && echo "別の処理終了"
+  D["別の処理（2秒）"]
   
   %% exec echo "終了"
   E["終了"]

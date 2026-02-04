@@ -68,7 +68,6 @@ func NewMermaidImpl(filePath string) (*MermaidImpl, error) {
 func processStatements(stmts []ast.Statement, impl *MermaidImpl, nodeMap map[string]string, commentMap map[string]string) {
 	var currentComment string
 	for _, stmt := range stmts {
-
 		switch v := stmt.(type) {
 		case *ast.NodeDef:
 			// ノードがすでに存在しても上書きする
